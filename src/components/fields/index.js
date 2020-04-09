@@ -1,14 +1,16 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
+import Mine from '../mine'
 import styles from './styles'
 
 export default props => {
-    const { mined, opened, nearMines } = props
+    const { mined, opened, nearMines, exploded } = props
     let color = null
 
     const styleField = [styles.field]
     if (opened) styleField.push(styles.opened)
+    if (exploded) styleField.push(styles.exploded)
     if (styleField.length === 1) styleField.push(styles.regular)
 
     if (nearMines > 0) {
@@ -25,6 +27,7 @@ export default props => {
             ) : (
                 false
             )}
+            {mined && opened ? <Mine /> : false}
         </View>
     )
 }
