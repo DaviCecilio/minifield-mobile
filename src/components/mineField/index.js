@@ -7,13 +7,13 @@ import styles from './styles'
 export default props => {
   const rows = props.board.map((row, r) => {
     const columns = row.map((field, c) => {
-      return <Field {...field} key={c} />
+      return <Field {...field} key={c} onOpen={() => props.onOpenField(r, c)} />
     })
     return (
-      <View key={r} style={styles.columnsContainer}>
+      <View key={r} style={styles.rowsContainer}>
         {columns}
       </View>
     )
   })
-  return <View style={styles.rowsContainer}>{rows}</View>
+  return <View style={styles.columnsContainer}>{rows}</View>
 }
