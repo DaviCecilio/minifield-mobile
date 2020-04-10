@@ -1,10 +1,10 @@
 const createBoard = (rows, columns) => {
   return Array(rows)
     .fill(0)
-    .map(_, row => {
+    .map((_, row) => {
       return Array(columns)
         .fill(0)
-        .map(_, columns => {
+        .map((_, columns) => {
           return {
             row,
             columns,
