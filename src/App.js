@@ -1,43 +1,36 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
 import params from './config/params'
 import MineField from './components/mineField'
 import { createMinedBoard } from './config/rules'
 
-export default class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = this.createState()
-  }
+function minesAmount() {
+  const cols = params.getColumnsAmount(),
+    rows = params.getRowsAmount()
+  return Math.ceil(cols * rows * params.difficultLevel)
+}
 
-  minesAmount = () => {
-    const cols = params.getColumnsAmount(),
-      rows = params.getRowsAmount()
-    return Math.ceil(cols * rows * params.difficultLevel)
-  }
+function createState() {
+  const cols = params.getColumnsAmount(),
+    rows = params.getRowsAmount()
+  return createMinedBoard(rows, cols, minesAmount())
+}
 
-  createState = () => {
-    const cols = params.getColumnsAmount(),
-      rows = params.getRowsAmount()
-    return {
-      board: createMinedBoard(rows, cols, this.minesAmount()),
-    }
-  }
+export default function App() {
+  const [board, setBoard] = useState(createState())
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.text}>Initial Mine</Text>
-        <Text style={styles.text}>
-          Grid size: {params.getColumnsAmount()} x {params.getRowsAmount()}{' '}
-        </Text>
-        <View style={styles.board}>
-          <MineField board={this.state.board} />
-        </View>
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Initial Mine</Text>
+      <Text style={styles.text}>
+        Grid size: {params.getColumnsAmount()} x {params.getRowsAmount()}{' '}
+      </Text>
+      <View style={styles.board}>
+        <MineField board={board} />
       </View>
-    )
-  }
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({

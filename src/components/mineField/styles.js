@@ -1,8 +1,10 @@
 import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
-  container: {
-    flexDirection: 'row',
+  rowsContainer: {
     backgroundColor: '#EEE',
+  },
+  columnsContainer: {
+    flexDirection: 'row',
   },
 })

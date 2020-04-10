@@ -9,7 +9,11 @@ export default props => {
     const columns = row.map((field, c) => {
       return <Field {...field} key={c} />
     })
-    return <View key={r}>{columns}</View>
+    return (
+      <View key={r} style={styles.columnsContainer}>
+        {columns}
+      </View>
+    )
   })
-  return <View styles={styles.container}>{rows}</View>
+  return <View style={styles.rowsContainer}>{rows}</View>
 }
