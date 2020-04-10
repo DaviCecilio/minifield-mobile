@@ -1,4 +1,4 @@
-import {Dimensions} from 'react-native'
+import { Dimensions } from 'react-native'
 
 const params = {
   blockSize: 30,
@@ -8,13 +8,13 @@ const params = {
   difficultLevel: 0.1,
   getColumnsAmount() {
     const width = Dimensions.get('screen').width
-    return Math.floor( width/this.blockSize )
+    return Math.floor(width / this.blockSize)
   },
   getRowsAmount() {
-    const totalHeight = Dimensions.get('screen').width,
-    boardHeight = totalHeight * (1-this.headerRatio)
-    return Math.floor( boardHeight/this.blockSize )
-  }
+    const totalHeight = Dimensions.get('screen').height,
+      boardHeight = totalHeight * (1 - this.headerRatio)
+    return Math.floor(boardHeight / this.blockSize)
+  },
 }
 
 export default params
