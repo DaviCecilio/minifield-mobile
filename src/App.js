@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { StyleSheet, View, Alert } from 'react-native'
 import params from './config/params'
 import MineField from './components/mineField'
+import Header from './components/header'
 import {
   createMinedBoard,
   cloneBoard,
@@ -10,6 +11,7 @@ import {
   wonGame,
   showMines,
   invertFlag,
+  flagsUsed,
 } from './config/rules'
 
 function minesAmount() {
@@ -61,6 +63,10 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Header
+        flagsLeft={minesAmount() - flagsUsed(state.board)}
+        onNewGame={() => setState(createState())}
+      />
       <View style={styles.board}>
         <MineField board={state.board} onOpenField={onOpenField} onSelectField={onSelectField} />
       </View>
