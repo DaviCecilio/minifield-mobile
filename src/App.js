@@ -9,6 +9,7 @@ import {
   hadExplosion,
   wonGame,
   showMines,
+  invertFlag,
 } from './config/rules'
 
 function minesAmount() {
@@ -48,10 +49,20 @@ export default function App() {
     setState({ board, lost, won })
   }
 
+  const onSelectField = (row, column) => {
+    const board = cloneBoard(state.board)
+    invertFlag(board, row, column)
+    const won = wonGame(board)
+
+    won ? Alert.alert('Parabéns : )', 'Você Venceu!') : null
+
+    setState({ board, won, ...state.lost })
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.board}>
-        <MineField board={state.board} onOpenField={onOpenField} />
+        <MineField board={state.board} onOpenField={onOpenField} onSelectField={onSelectField} />
       </View>
     </View>
   )
