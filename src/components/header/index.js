@@ -7,7 +7,6 @@ import Flag from '../flags'
 export default props => {
   return (
     <View style={Styles.container}>
-
       <View style={Styles.flagContainer}>
         <TouchableOpacity onPress={props.onFlagPress} style={Styles.flagButton}>
           <Flag bigger />
@@ -16,9 +15,8 @@ export default props => {
       </View>
 
       <TouchableOpacity onPress={props.onNewGame} style={Styles.button}>
-        <Text styles={Styles.buttonLabel}> New Game</Text>
+        <Text style={Styles.buttonLabel}>New Game</Text>
       </TouchableOpacity>
-
     </View>
   )
 }

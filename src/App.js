@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Alert } from 'react-native'
+
 import params from './config/params'
+
+import Difficult from './screens/difficult'
+
 import MineField from './components/mineField'
 import Header from './components/header'
+
 import {
   createMinedBoard,
   cloneBoard,
@@ -27,6 +32,7 @@ function createState() {
     board: createMinedBoard(rows, cols, minesAmount()),
     won: false,
     lost: false,
+    showDifficult: false,
   }
 }
 
@@ -41,14 +47,14 @@ export default function App() {
 
     if (lost) {
       showMines(board)
-      Alert.alert('Que pena...', 'Você perdeu!')
+      Alert.alert('What a pity...', 'You lost!')
     }
 
     if (won) {
-      Alert.alert('Parabéns : )', 'Você Venceu!')
+      Alert.alert('Congratulations : )', 'You win!')
     }
 
-    setState({ board, lost, won })
+    setState({ board, lost, won, showDifficult: false })
   }
 
   const onSelectField = (row, column) => {
@@ -56,16 +62,29 @@ export default function App() {
     invertFlag(board, row, column)
     const won = wonGame(board)
 
-    won ? Alert.alert('Parabéns : )', 'Você Venceu!') : null
+    won ? Alert.alert('Congratulations : )', 'Vou win!') : null
 
-    setState({ board, won, ...state.lost })
+    setState(prevState => ({ ...prevState, board, won }))
+  }
+
+  const onDifficult = level => {
+    params.difficultLevel = level
+    console.log('executei')
+
+    setState(createState())
   }
 
   return (
     <View style={styles.container}>
+      <Difficult
+        isVisible={state.showDifficult}
+        onDifficult={onDifficult}
+        onCancel={() => setState(prevState => ({ ...prevState, showDifficult: false }))}
+      />
       <Header
         flagsLeft={minesAmount() - flagsUsed(state.board)}
-        onNewGame={() => setState(createState())}
+        onNewGame={() => setState(() => createState())}
+        onFlagPress={() => setState(prevState => ({ ...prevState, showDifficult: true }))}
       />
       <View style={styles.board}>
         <MineField board={state.board} onOpenField={onOpenField} onSelectField={onSelectField} />
