@@ -69,7 +69,6 @@ export default function App() {
 
   const onDifficult = level => {
     params.difficultLevel = level
-    console.log('executei')
 
     setState(createState())
   }
